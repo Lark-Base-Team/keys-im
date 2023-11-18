@@ -1,0 +1,19 @@
+
+.gridAdd > input:focus {
+    outline: none;
+    background-color: rgba(0, 0, 0, 0.08);
+}
+.addInput{
+    margin: 8px 0;
+    width: 100%;
+}
+.tips{
+    position: absolute;
+    bottom: 8px;
+    font-size: 13px;
+    color: #999;
+    background-color: rgba(0, 0, 0, 0.04);
+    padding: 8px;
+    margin: 0;
+    border-radius: 8px;
+}

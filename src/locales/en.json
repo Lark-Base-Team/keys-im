@@ -1,0 +1,14 @@
+{  
+  "add": "Add",  
+  "addSuccess": "Add Success",  
+  "tips": "Tips: This plugin can automatically generate shortcuts for Mac and Windows and add them to the fields of 【mac快捷键】 and 【win快捷键】, if the corresponding fields are missing, it will automatically create them.",  
+  "toastAllEmpty": "Title and shortcut cannot be empty",  
+  "titleEmpty": "Title cannot be empty",  
+  "keyEmpty": "Shortcut cannot be empty",  
+  "keyAvailable": "Great, there's no duplicate shortcut yet!",  
+  "keyDisabled1": "The shortcut already exists, at line ",  
+  "keyDisabled2": ".",  
+  "placeholderTitle": "Please enter the topic",  
+  "check": "Duplicate check",  
+  "placeholderKey": "Click here to start entering the shortcut"  
+}

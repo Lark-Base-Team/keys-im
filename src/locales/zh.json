@@ -1,0 +1,15 @@
+{
+    "add":"添加",
+    "addSuccess":"添加成功",
+    "tips":"Tips:此插件可以自动生成mac和win的快捷键，并将其添加到【mac快捷键】和【win快捷键】字段中，如果缺少相应字段将会自动创建。",
+    "toastAllEmpty":"标题和快捷键不能为空",
+    "titleEmpty":"标题不能为空",
+    "keyEmpty":"快捷键不能为空",
+    "keyAvailable":"太棒了，还没有重复的快捷键！",
+    "keyDisabled1":"快捷键已存在，在第",
+    "keyDisabled2":"行",
+    "placeholderTitle":"请输入主题",
+    "check":"查重",
+    "placeholderKey":"点击此处开始输入快捷键"
+
+  }
