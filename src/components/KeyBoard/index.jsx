@@ -18,8 +18,10 @@ export default class KeyBoard extends Component {
     keyInput = async (e) => {
         const { input } = this
         input.focus()
+    }
+    listeenrKey = async (e) =>{
+        const { input } = this
         input.addEventListener("keydown", (e) => {
-            console.log(e.keyCode);
             switch (e.keyCode) {
                 case 16:
                     this.setState({ shift: !this.state.shift })
@@ -50,12 +52,11 @@ export default class KeyBoard extends Component {
             const { letterKey, shift, ctrl, alt, meta } = this.state
             const key = [alt ? 'alt' : '', ctrl ? 'ctrl' : '', meta ? 'meta' : '', shift ? 'shift' : '', letterKey]
             this.props.keys(key)
-            // console.log(key);
         })
     }
     componentDidMount() {
         const { input } = this;
-        input.addEventListener('focus',this.keyInput)
+        input.addEventListener('focus',this.listeenrKey)
     }
     render() {
         const { t } = this.props
