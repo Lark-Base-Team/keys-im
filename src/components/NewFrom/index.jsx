@@ -162,7 +162,7 @@ export default class NewFrom extends Component {
         const { t } = this.props
         return (
             <form name="mydata" className="gridAdd">
-                <TextArea key={keyBoard + 1} autosize={{ minRows: 2, maxRows: 4 }}
+                <TextArea key={keyBoard + 1} autosize={{ minRows: 1, maxRows: 4 }}
                     className="addInput"
                     placeholder={t('placeholderTitle')}
                     ref={e => this.inputTitleRef = e}
