@@ -147,7 +147,7 @@ export default class NewFrom extends Component {
                     message = keyAvailable
                 } else {
                     message = keyDisabled1 + index.join('、') + keyDisabled2
-                    timeOut = 20
+                    timeOut = 10
                 }
             }
             Toast.info({
