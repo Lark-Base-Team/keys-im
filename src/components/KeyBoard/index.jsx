@@ -19,6 +19,7 @@ export default class KeyBoard extends Component {
         const { input } = this
         input.focus()
         input.addEventListener("keydown", (e) => {
+            console.log(e.keyCode);
             switch (e.keyCode) {
                 case 16:
                     this.setState({ shift: !this.state.shift })
@@ -66,13 +67,28 @@ export default class KeyBoard extends Component {
     render() {
         const { t } = this.props
         const { letterKey, shift, ctrl, alt, meta } = this.state
+        const keyMap = {
+            win: {
+                ctrl: 'ctrl',
+                alt: 'alt',
+                shift: 'shift',
+                cmd: 'win'
+            },
+            mac: {
+                ctrl: '⌃',
+                alt: '⌥',
+                shift: '⇧',
+                meta: '⌘'
+            }
+        }
+        const isMac = /Mac/i.test(navigator.userAgent)
         return (
             <div ref={c => this.input = c} className="keyInput" onClick={this.keyInput} tabIndex={0}>
                 <span className="keyTips" style={{ display: !shift && !ctrl && !alt && !meta && !letterKey ? "flex" : "none" }}>{t('placeholderKey')}</span>
-                <div className="keys" style={{ display: this.state.alt ? "flex" : "none" }}>⌥</div>
-                <div className="keys" style={{ display: this.state.ctrl ? "flex" : "none" }}>⌃</div>
-                <div className="keys" style={{ display: this.state.meta ? "flex" : "none" }}>⌘</div>
-                <div className="keys" style={{ display: this.state.shift ? "flex" : "none" }}>⇧</div>
+                <div className="keys" style={{ display: this.state.alt ? "flex" : "none" }}>{isMac? keyMap.mac.alt : keyMap.win.alt}</div>
+                <div className="keys" style={{ display: this.state.ctrl ? "flex" : "none" }}>{isMac? keyMap.mac.ctrl : keyMap.win.ctrl}</div>
+                <div className="keys" style={{ display: this.state.meta ? "flex" : "none" }}>{isMac? keyMap.mac.meta : keyMap.win.meta}</div>
+                <div className="keys" style={{ display: this.state.shift ? "flex" : "none" }}>{isMac? keyMap.mac.shift : keyMap.win.shift}</div>
                 <div className="keys" style={{ display: this.state.letterKey ? "flex" : "none" }}>{this.state.letterKey}</div>
             </div>
         )

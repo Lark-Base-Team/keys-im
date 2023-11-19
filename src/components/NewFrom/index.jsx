@@ -64,10 +64,10 @@ export default class NewFrom extends Component {
             const keyCode = e.filter(Boolean)
             const mackey = keyCode.map(item => {
                 const keyMap = {
-                    ctrl: 'Ctrl',
-                    alt: 'Alt',
-                    shift: 'Shift',
-                    cmd: 'Win'
+                    ctrl: '⌃',
+                    alt: '⌥',
+                    shift: '⇧',
+                    meta: '⌘'
                 };
                 return keyMap[item] || item;
             });
@@ -119,18 +119,27 @@ export default class NewFrom extends Component {
             }
             // 判断是否重复，并记录重复的行
             let index = []
-            for (let i = 0; i < macs.length; i++) {
-                if (macs[i] === this.state.mac.join(' + ')) {
-                    index = [...index, i + 1]
+            const isMac = /Mac/i.test(navigator.userAgent)
+            if (isMac) {
+                for (let i = 0; i < macs.length; i++) {
+                    if (macs[i] === this.state.mac.join(' + ')) {
+                        index = [...index, i + 1]
+                    }
+                }
+            } else {
+                for (let i = 0; i < wins.length; i++) {
+                    if (wins[i] === this.state.win.join(' + ')) {
+                        index = [...index, i + 1]
+                    }
                 }
             }
+
             let timeOut = 2
             const { t } = this.props
             const keyEmpty = t('keyEmpty')
             const keyAvailable = t('keyAvailable')
             const keyDisabled1 = t('keyDisabled1')
             const keyDisabled2 = t('keyDisabled2')
-
             if (this.state.mac.length === 0) {
                 message = keyEmpty
             } else {
@@ -155,14 +164,14 @@ export default class NewFrom extends Component {
             <form name="mydata" className="gridAdd">
                 <TextArea key={keyBoard + 1} autosize={{ minRows: 2, maxRows: 4 }}
                     className="addInput"
-                    placeholder={ t('placeholderTitle')}
+                    placeholder={t('placeholderTitle')}
                     ref={e => this.inputTitleRef = e}
                     onChange={(value) => this.setState({ title: value })}
                 />
                 <KeyBoard className="addInput" keys={this.keys} key={keyBoard} t={t} />
                 <br />
-                <Button size="large" theme="solid" className="addInput" onClick={this.add} loading={this.props.loading}>{ t('add')}</Button>
-                <Button loading={this.state.checkLoading} size="large" className="addInput" onClick={this.check}>{ t('check') }</Button>
+                <Button size="large" theme="solid" className="addInput" onClick={this.add} loading={this.props.loading}>{t('add')}</Button>
+                <Button loading={this.state.checkLoading} size="large" className="addInput" onClick={this.check}>{t('check')}</Button>
 
             </form>
         )
