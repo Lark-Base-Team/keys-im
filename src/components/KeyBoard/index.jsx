@@ -15,7 +15,7 @@ export default class KeyBoard extends Component {
     }
 
     // 监听键盘按键
-    keyInput = async (e) => {
+    keyInput = (e) => {
         const { input } = this
         input.focus()
     }
