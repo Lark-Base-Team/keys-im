@@ -55,14 +55,7 @@ export default class KeyBoard extends Component {
     }
     componentDidMount() {
         const { input } = this;
-
-        const click = () => {
-            input.onclick();
-        };
-
-        if (input.current) {
-            input.current.addEventListener('focus', () => click());
-        }
+        input.addEventListener('focus',this.keyInput)
     }
     render() {
         const { t } = this.props
