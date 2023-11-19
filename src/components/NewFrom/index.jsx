@@ -90,8 +90,8 @@ export default class NewFrom extends Component {
             });
             const winkey = keyCode.map(item => {
                 const keyMap = {
-                    ctrl: 'Win',
-                    meta: 'Ctrl',
+                    ctrl: 'win',
+                    meta: 'ctrl',
                 }
                 return keyMap[item] || item;
             })
