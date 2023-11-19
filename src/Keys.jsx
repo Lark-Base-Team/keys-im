@@ -7,7 +7,7 @@ import { bitable } from '@lark-base-open/js-sdk'
 
 const base = bitable.base
 export default class App extends Component {
-  
+
   state = {
     keys: {},
     history: [],
@@ -15,12 +15,12 @@ export default class App extends Component {
     data: []
   }
   test = () => {
-    const {t} = this.props
+    const { t } = this.props
     console.log(t);
   }
   //用于添加一条数据
   addItem = async (itemObj) => {
-    const {t} = this.props
+    const { t } = this.props
     const addSuccess = t('addSuccess')
 
     try {
@@ -76,10 +76,10 @@ export default class App extends Component {
     const { t } = this.props;
     return (
       <div>
-        <NewFrom addItem={this.addItem} loading={this.state.loading} t={t}/>
         <p className='tips'>
-        { t('tips') }
+          {t('tips')}
         </p>
+        <NewFrom addItem={this.addItem} loading={this.state.loading} t={t} />
       </div>
     )
   }
