@@ -20,11 +20,9 @@ export default class KeyBoard extends Component {
         input.addEventListener('keyup',this.keyup)
     }
     keydown = (e) => {
-        let newshift = this.state.shift
         switch (e.key) {
             case 'Shift':
-                this.setState({ shift: !newshift }, () => { console.log('100', this.state.shift); })
-                console.log(newshift);
+                this.setState({ shift: !this.state.shift })
                 break
             case 'Control':
                 this.setState({ ctrl: !this.state.ctrl })
