@@ -14,49 +14,54 @@ export default class KeyBoard extends Component {
         }
     }
 
-    // 监听键盘按键
-    keyInput = (e) => {
+    listeenrKey = (e) => {
         const { input } = this
-        input.focus()
+        input.addEventListener("keydown",this.keydown)
+        input.addEventListener('keyup',this.keyup)
     }
-    listeenrKey = async (e) =>{
-        const { input } = this
-        input.addEventListener("keydown", (e) => {
-            switch (e.keyCode) {
-                case 16:
-                    this.setState({ shift: !this.state.shift })
-                    break
-                case 17:
-                    this.setState({ ctrl: !this.state.ctrl })
-                    break
-                case 18:
-                    this.setState({ alt: !this.state.alt })
-                    break
-                case 91:
-                case 93:
-                    this.setState({ meta: !this.state.meta })
-                    break
-                case 8:
-                    if (this.state.letterKey === 'BackSpace') {
-                        this.setState({ letterKey: '', shift: false, ctrl: false, alt: false, meta: false })
-                    } else {
-                        this.setState({ letterKey: keyMap[e.keyCode] })
-                    }
-                    break
-                default:
+    keydown = (e) => {
+        let newshift = this.state.shift
+        switch (e.key) {
+            case 'Shift':
+                this.setState({ shift: !newshift }, () => { console.log('100', this.state.shift); })
+                console.log(newshift);
+                break
+            case 'Control':
+                this.setState({ ctrl: !this.state.ctrl })
+                break
+            case 'Alt':
+                this.setState({ alt: !this.state.alt })
+                break
+            case 'Meta':
+                this.setState({ meta: !this.state.meta })
+                break
+            case 'Backspace':
+                if (this.state.letterKey === 'BackSpace') {
+                    this.setState({ letterKey: '', shift: false, ctrl: false, alt: false, meta: false })
+                } else {
                     this.setState({ letterKey: keyMap[e.keyCode] })
-                    break
-            }
-        })
-        input.addEventListener('keyup', e => {
-            const { letterKey, shift, ctrl, alt, meta } = this.state
-            const key = [alt ? 'alt' : '', ctrl ? 'ctrl' : '', meta ? 'meta' : '', shift ? 'shift' : '', letterKey]
-            this.props.keys(key)
-        })
+                }
+                break
+            default:
+                this.setState({ letterKey: keyMap[e.keyCode] })
+                break
+        }
+    }
+    keyup = (e) => {
+        const { letterKey, shift, ctrl, alt, meta } = this.state
+        const key = [alt ? 'alt' : '', ctrl ? 'ctrl' : '', meta ? 'meta' : '', shift ? 'shift' : '', letterKey]
+        this.props.keys(key)
+    }
+    // 清除鼠标按下监听事件：
+    removeKeydownListener = () => {
+        const { input } = this;
+        input.removeEventListener('keydown', this.keydown)
+        input.removeEventListener('keyup', this.keyup)
     }
     componentDidMount() {
         const { input } = this;
-        input.addEventListener('focus',this.listeenrKey)
+        input.addEventListener('focus', this.listeenrKey)
+        input.addEventListener('blur', this.removeKeydownListener)
     }
     render() {
         const { t } = this.props
@@ -77,12 +82,12 @@ export default class KeyBoard extends Component {
         }
         const isMac = /Mac/i.test(navigator.userAgent)
         return (
-            <div ref={c => this.input = c} className="keyInput" onClick={this.keyInput} tabIndex={0}>
+            <div ref={c => this.input = c} className="keyInput" onClick={this.listeenrKey} tabIndex={0}>
                 <span className="keyTips" style={{ display: !shift && !ctrl && !alt && !meta && !letterKey ? "flex" : "none" }}>{t('placeholderKey')}</span>
-                <div className="keys" style={{ display: this.state.alt ? "flex" : "none" }}>{isMac? keyMap.mac.alt : keyMap.win.alt}</div>
-                <div className="keys" style={{ display: this.state.ctrl ? "flex" : "none" }}>{isMac? keyMap.mac.ctrl : keyMap.win.ctrl}</div>
-                <div className="keys" style={{ display: this.state.meta ? "flex" : "none" }}>{isMac? keyMap.mac.meta : keyMap.win.meta}</div>
-                <div className="keys" style={{ display: this.state.shift ? "flex" : "none" }}>{isMac? keyMap.mac.shift : keyMap.win.shift}</div>
+                <div className="keys" style={{ display: this.state.alt ? "flex" : "none" }}>{isMac ? keyMap.mac.alt : keyMap.win.alt}</div>
+                <div className="keys" style={{ display: this.state.ctrl ? "flex" : "none" }}>{isMac ? keyMap.mac.ctrl : keyMap.win.ctrl}</div>
+                <div className="keys" style={{ display: this.state.meta ? "flex" : "none" }}>{isMac ? keyMap.mac.meta : keyMap.win.meta}</div>
+                <div className="keys" style={{ display: this.state.shift ? "flex" : "none" }}>{isMac ? keyMap.mac.shift : keyMap.win.shift}</div>
                 <div className="keys" style={{ display: this.state.letterKey ? "flex" : "none" }}>{this.state.letterKey}</div>
             </div>
         )
