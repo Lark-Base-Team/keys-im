@@ -1,11 +1,11 @@
 import React, { Component, createRef } from "react"
-import { TextArea, Button, Toast } from '@douyinfe/semi-ui';
+import { TextArea, Button, Toast, Typography } from '@douyinfe/semi-ui';
 import KeyBoard from "../KeyBoard"
 import { bitable } from '@lark-base-open/js-sdk'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 import "./index.css"
 
 const base = bitable.base
-let message = ''
 let keyBoard = 1
 
 export default class NewFrom extends Component {
@@ -16,6 +16,7 @@ export default class NewFrom extends Component {
         win: [],
         mac: [],
         checkLoading: false,
+        copied: false,
     }
     // 添加数据
     add = (event) => {
@@ -23,7 +24,6 @@ export default class NewFrom extends Component {
         const toastAllEmpty = t('toastAllEmpty')
         const titleEmpty = t('titleEmpty')
         const keyEmpty = t('keyEmpty')
-
         const { inputTitleRef } = this
         // 阻止默认事件
         event.preventDefault();
@@ -105,55 +105,50 @@ export default class NewFrom extends Component {
     check = async () => {
         try {
             this.setState({ checkLoading: true })
-            let macs = []
-            let wins = []
+            let text = ''
             const table = await base.getActiveTable()
             const records = await table.getRecordIdList()
-            const fieldMac = await table.getFieldByName('mac快捷键')
             const fieldWin = await table.getFieldByName('win快捷键')
             for (let i = 0; i < records.length; i++) {
-                let macCellValue = await fieldMac.getCellString(records[i])
                 let winCellValue = await fieldWin.getCellString(records[i])
-                macs = [...macs, macCellValue]
-                wins = [...wins, winCellValue]
-            }
-            // 判断是否重复，并记录重复的行
-            let index = []
-            const isMac = /Mac/i.test(navigator.userAgent)
-            if (isMac) {
-                for (let i = 0; i < macs.length; i++) {
-                    if (macs[i] === this.state.mac.join(' + ')) {
-                        index = [...index, i + 1]
-                    }
-                }
-            } else {
-                for (let i = 0; i < wins.length; i++) {
-                    if (wins[i] === this.state.win.join(' + ')) {
-                        index = [...index, i + 1]
-                    }
+                if (winCellValue === this.state.win.join(' + ')) {
+                    text = winCellValue
+                    break
                 }
             }
 
-            let timeOut = 2
             const { t } = this.props
             const keyEmpty = t('keyEmpty')
             const keyAvailable = t('keyAvailable')
             const keyDisabled1 = t('keyDisabled1')
-            const keyDisabled2 = t('keyDisabled2')
             if (this.state.mac.length === 0) {
-                message = keyEmpty
+                Toast.warning({
+                    content: keyEmpty,
+                    duration: 2,
+                })
             } else {
-                if (index.length === 0) {
-                    message = keyAvailable
+                if (text === '') {
+                    Toast.info({
+                        content: keyAvailable,
+                        duration: 2,
+                    })
                 } else {
-                    message = keyDisabled1 + index.join('、') + keyDisabled2
-                    timeOut = 10
+                    const { Text } = Typography
+                    Toast.warning({
+                        content: (
+                            <span>
+                                <div>{keyDisabled1}</div>
+                                <CopyToClipboard text={text}
+                                    onCopy={() => this.setState({ copied: true })}>
+                                    <Text link>复制快捷键</Text>
+                                </CopyToClipboard>
+                            </span>
+
+                        ),
+                        duration: 0,
+                    })
                 }
             }
-            Toast.info({
-                content: message,
-                duration: timeOut,
-            })
         } finally {
             this.setState({ checkLoading: false })
         }

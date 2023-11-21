@@ -6,10 +6,11 @@
     "titleEmpty":"标题不能为空",
     "keyEmpty":"快捷键不能为空",
     "keyAvailable":"太棒了，还没有重复的快捷键！",
-    "keyDisabled1":"快捷键已存在，在第",
-    "keyDisabled2":"行",
+    "keyDisabled1":"快捷键已存在，使用多维表格的Ctrl+F进行定位 ",
+    "copyKey":"复制快捷键",
     "placeholderTitle":"请输入主题",
     "check":"查 重",
-    "placeholderKey":"请输入快捷键"
+    "placeholderKey":"请输入快捷键",
+    "errorField":"请将第一个标题修改为文本类型后再试"
 
   }

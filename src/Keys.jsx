@@ -6,7 +6,7 @@ import { bitable } from '@lark-base-open/js-sdk'
 
 
 const base = bitable.base
-export default class App extends Component {
+export default class         App extends Component {
 
   state = {
     keys: {},
@@ -22,6 +22,7 @@ export default class App extends Component {
   addItem = async (itemObj) => {
     const { t } = this.props
     const addSuccess = t('addSuccess')
+    const errorField = t('errorField')
 
     try {
       this.setState({ loading: true })
@@ -52,6 +53,14 @@ export default class App extends Component {
       const fieldTitle = fieldTitleList[0]
       const fieldMac = await table.getField('mac快捷键')
       const fieldWin = await table.getField('win快捷键')
+      const fieldTitleObj = await table.getFieldMetaById(fieldTitle)
+      if (fieldTitleObj.type !== 1) {
+        Toast.error({
+          content: errorField,
+          duration: 0,
+        })
+        return
+      }
       // const res = 
       await table.addRecord({
         fields: {
@@ -60,13 +69,13 @@ export default class App extends Component {
           [fieldWin.id]: itemObj.win.join(' + ')
         }
       })
-    } finally {
-      this.setState({ loading: false })
-      Toast.success({
+      await Toast.success({
         content: addSuccess,
         duration: 2,
         showClose: false,
       })
+    } finally {
+      this.setState({ loading: false })
     }
     // 撤销功能
     // this.setState({ history: [res, ...this.state.history] })

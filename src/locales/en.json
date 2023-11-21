@@ -6,9 +6,10 @@
   "titleEmpty": "Title cannot be empty",  
   "keyEmpty": "Shortcut cannot be empty",  
   "keyAvailable": "Great, there's no duplicate shortcut yet!",  
-  "keyDisabled1": "The shortcut already exists, at line ",  
-  "keyDisabled2": ".",  
+  "keyDisabled1": "The shortcut already exists, ", 
+  "copyKey":"Copy shortcut",
   "placeholderTitle": "Please enter the topic",  
   "check": "Duplicate check",  
-  "placeholderKey": "Please enter shortcut keys"  
+  "placeholderKey": "Please enter shortcut keys",
+  "errorField":"Please change the first title to a text type and try again"
 }
