@@ -16,8 +16,10 @@ export default class KeyBoard extends Component {
 
     listeenrKey = (e) => {
         const { input } = this
-        input.addEventListener("keydown",this.keydown)
-        input.addEventListener('keyup',this.keyup)
+        input.addEventListener("keydown", this.keydown)
+        input.addEventListener('keyup', this.keyup)
+        input.addEventListener('mousedown', this.mousedown)
+        input.addEventListener('mouseup', this.keyup)
     }
     keydown = (e) => {
         switch (e.key) {
@@ -50,11 +52,28 @@ export default class KeyBoard extends Component {
         const key = [alt ? 'alt' : '', ctrl ? 'ctrl' : '', meta ? 'meta' : '', shift ? 'shift' : '', letterKey]
         this.props.keys(key)
     }
+    mousedown = (e) => {
+        if (document.activeElement === e.target)
+            switch (e.button) {
+                case 0:
+                    this.setState({ letterKey: '左键' })
+                    break
+                case 1:
+                    this.setState({ letterKey: '中键' })
+                    break
+                case 2:
+                    this.setState({ letterKey: '右键' })
+                    break
+                default:
+                    break
+            }
+    }
     // 清除鼠标按下监听事件：
     removeKeydownListener = () => {
         const { input } = this;
         input.removeEventListener('keydown', this.keydown)
         input.removeEventListener('keyup', this.keyup)
+        input.removeEventListener('mousedown', this.mousedown)
     }
     componentDidMount() {
         const { input } = this;

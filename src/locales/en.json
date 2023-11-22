@@ -6,7 +6,7 @@
   "titleEmpty": "Title cannot be empty",  
   "keyEmpty": "Shortcut cannot be empty",  
   "keyAvailable": "Great, there's no duplicate shortcut yet!",  
-  "keyDisabled1": "The shortcut already exists, ", 
+  "keyDisabled1": "The shortcut already exists", 
   "copyKey":"Copy shortcut",
   "placeholderTitle": "Please enter the topic",  
   "check": "Duplicate check",  
