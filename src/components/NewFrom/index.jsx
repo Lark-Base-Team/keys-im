@@ -1,5 +1,5 @@
 import React, { Component, createRef } from "react"
-import { TextArea, Button, Toast, Typography } from '@douyinfe/semi-ui';
+import { TextArea, Button, Toast, Typography, } from '@douyinfe/semi-ui';
 import KeyBoard from "../KeyBoard"
 import { bitable } from '@lark-base-open/js-sdk'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
@@ -15,8 +15,9 @@ export default class NewFrom extends Component {
         title: '', // 输入框中的标题文本
         win: [],
         mac: [],
-        checkLoading: false,
+        // checkLoading: false,
         copied: false,
+        toast: null
     }
     // 添加数据
     add = (event) => {
@@ -102,56 +103,58 @@ export default class NewFrom extends Component {
         }
     }
     // 获取当前表的记录
-    check = async () => {
+    check = async (e) => {
         try {
             this.setState({ checkLoading: true })
             let text = ''
             const table = await base.getActiveTable()
-            const records = await table.getRecordIdList()
+            const allRecords = await table.getRecords({
+                pageSize: 5000
+            })
+            const records = allRecords.records
             const fieldWin = await table.getFieldByName('win快捷键')
             for (let i = 0; i < records.length; i++) {
-                let winCellValue = await fieldWin.getCellString(records[i])
+                let winCellValue = records[i].fields[fieldWin.id][0].text
                 if (winCellValue === this.state.win.join(' + ')) {
                     text = winCellValue
                     break
                 }
             }
-
             const { t } = this.props
-            const keyEmpty = t('keyEmpty')
-            const keyAvailable = t('keyAvailable')
             const keyDisabled1 = t('keyDisabled1')
-            if (this.state.mac.length === 0) {
-                Toast.warning({
-                    content: keyEmpty,
-                    duration: 2,
-                })
+            if (text === '') {
+                return true
             } else {
-                if (text === '') {
-                    Toast.info({
-                        content: keyAvailable,
-                        duration: 2,
-                    })
-                } else {
-                    const { Text } = Typography
-                    Toast.warning({
-                        content: (
-                            <span>
-                                <div>{keyDisabled1}</div>
-                                <CopyToClipboard text={text}
-                                    onCopy={() => this.setState({ copied: true })}>
-                                    <Text link>复制快捷键</Text>
-                                </CopyToClipboard>
-                            </span>
-
-                        ),
-                        duration: 0,
-                    })
-                }
+                const { Text } = Typography
+                let toast = Toast.warning({
+                    content: (
+                        <span>
+                            <div>{keyDisabled1}</div>
+                            <CopyToClipboard text={text}
+                                onCopy={() => this.setState({ copied: true })}>
+                                <Text link>复制快捷键</Text>
+                            </CopyToClipboard>
+                            <Text link onClick={this.goOn} style={{ marginLeft: '10px' }}>继续添加</Text>
+                        </span>
+                    ),
+                    duration: 0,
+                })
+                this.setState({ toast: toast })
             }
+
         } finally {
             this.setState({ checkLoading: false })
         }
+    }
+    goOn = async (e) => {
+        Toast.close(this.state.toast)
+        this.setState({ toast: null }) 
+        this.add(e)
+    }
+    addAndCheck = async (e) => {
+        const result = await this.check(e)
+        if (!result) return
+        await this.add(e)
     }
     render() {
         const { t } = this.props
@@ -165,8 +168,8 @@ export default class NewFrom extends Component {
                 />
                 <KeyBoard className="addInput" keys={this.keys} key={keyBoard} t={t} />
                 <br />
-                <Button size="large" theme="solid" className="addInput" onClick={this.add} loading={this.props.loading}>{t('add')}</Button>
-                <Button loading={this.state.checkLoading} size="large" className="addInput" onClick={this.check}>{t('check')}</Button>
+                <Button size="large" theme="solid" className="addInput" onClick={this.addAndCheck} loading={this.props.loading}>{t('add')}</Button>
+                {/* <Button loading={this.state.checkLoading} size="large" className="addInput" onClick={this.check}>{t('check')}</Button> */}
 
             </form>
         )

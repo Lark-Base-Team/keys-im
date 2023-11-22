@@ -50,7 +50,7 @@ export default class         App extends Component {
       }
       // 添加记录
       const fieldTitleList = await view.getVisibleFieldIdList()
-      const fieldTitle = fieldTitleList[0]
+      let fieldTitle = fieldTitleList[0]
       const fieldMac = await table.getField('mac快捷键')
       const fieldWin = await table.getField('win快捷键')
       const fieldTitleObj = await table.getFieldMetaById(fieldTitle)
@@ -64,7 +64,7 @@ export default class         App extends Component {
       // const res = 
       await table.addRecord({
         fields: {
-          [fieldTitle]: itemObj.title,
+          [fieldTitleObj.id]: itemObj.title,
           [fieldMac.id]: itemObj.mac.join(' + '),
           [fieldWin.id]: itemObj.win.join(' + ')
         }
