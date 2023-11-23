@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { TextArea, Button, Toast, Typography, } from '@douyinfe/semi-ui';
+import { TextArea, Button, Toast, Typography, Checkbox } from '@douyinfe/semi-ui';
 import KeyBoard from "../KeyBoard"
 import { bitable } from '@lark-base-open/js-sdk'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
@@ -15,6 +15,7 @@ export default class NewFrom extends Component {
         mac: [],
         loading: false,
         toast: null,
+        checked: true,
     }
     // 添加数据
     add = async () => {
@@ -193,8 +194,10 @@ export default class NewFrom extends Component {
     }
     addAndCheck = async () => {
         this.setState({ loading: true })
-        const result = await this.check()
-        if (!result) return this.setState({ loading: false })
+        if (this.state.checked) {
+            const result = await this.check()
+            if (!result) return this.setState({ loading: false })
+        }
         await this.add()
     }
     render() {
@@ -204,14 +207,17 @@ export default class NewFrom extends Component {
                 <p className='tips'>
                     {t('tips')}
                 </p>
-                <p>{t('title')}</p>
+                <p className="labels">{t('title')}</p>
                 <TextArea key={keyBoard + 1} autosize={{ minRows: 1, maxRows: 4 }}
                     className="addInput"
                     placeholder={t('placeholderTitle')}
                     ref={e => this.inputTitleRef = e}
                     onChange={(value) => this.setState({ title: value })}
                 />
+                <p className="labels">{t('keyboardShortcuts')}</p>
                 <KeyBoard className="addInput" keys={this.keys} key={keyBoard} t={t} />
+                <br />
+                <Checkbox defaultChecked onChange={() => this.setState({ checked: !this.state.checked })} >{t('check')}</Checkbox>
                 <br />
                 <Button size="large" theme="solid" className="addInput" onClick={this.addAndCheck} loading={this.state.loading}>{t('add')}</Button>
             </div>

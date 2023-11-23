@@ -9,6 +9,8 @@
     "copyKey":"复制快捷键",
     "placeholderTitle":"请输入主题",
     "placeholderKey":"请输入快捷键",
-    "errorField":"请将第一个标题修改为文本类型后再试"
-
+    "errorField":"请将第一个标题修改为文本类型后再试",
+    "title":"标题",
+    "keyboardShortcuts":"快捷键",
+    "check":"自动查重"
   }
