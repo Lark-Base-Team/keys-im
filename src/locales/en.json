@@ -10,8 +10,8 @@
   "placeholderTitle": "Please enter the topic",  
   "placeholderKey": "Please enter shortcut keys",
   "errorField":"Please change the first title to a text type and try again",
-  "title":"标题",
-  "keyboardShortcuts":"快捷键",
-  "check":"自动查重"
+  "title":"Title",
+  "keyboardShortcuts":"Keyboard shortcuts",
+  "check":"Automatic duplicate check"
 
 }

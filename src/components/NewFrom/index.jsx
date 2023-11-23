@@ -174,7 +174,7 @@ export default class NewFrom extends Component {
             let toast = Toast.warning({
                 content: (
                     <span>
-                        <div>{keyDisabled1}</div>
+                        <div style={{marginBottom: '6px'}}>{keyDisabled1}</div>
                         <CopyToClipboard text={text}>
                             <Text link>复制快捷键</Text>
                         </CopyToClipboard>
