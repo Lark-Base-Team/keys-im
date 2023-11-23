@@ -1,8 +1,9 @@
 import { Component } from 'react'
-import Keys from './Keys'
+import NewFrom from './components/NewFrom'
 import { withTranslation } from 'react-i18next'
 
-const NewApp = withTranslation()(Keys)
+// 引入i18n组件
+const NewApp = withTranslation()(NewFrom)
 
 export default class App extends Component {
   render() {

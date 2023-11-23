@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { TextArea, Button, Toast, Typography,  } from '@douyinfe/semi-ui';
+import { TextArea, Button, Toast, Typography, } from '@douyinfe/semi-ui';
 import KeyBoard from "../KeyBoard"
 import { bitable } from '@lark-base-open/js-sdk'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
@@ -201,6 +201,9 @@ export default class NewFrom extends Component {
         const { t } = this.props
         return (
             <div name="mydata" className="gridAdd">
+                <p className='tips'>
+                    {t('tips')}
+                </p>
                 <TextArea key={keyBoard + 1} autosize={{ minRows: 1, maxRows: 4 }}
                     className="addInput"
                     placeholder={t('placeholderTitle')}
