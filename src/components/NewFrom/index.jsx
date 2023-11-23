@@ -204,6 +204,7 @@ export default class NewFrom extends Component {
                 <p className='tips'>
                     {t('tips')}
                 </p>
+                <p>{t('title')}</p>
                 <TextArea key={keyBoard + 1} autosize={{ minRows: 1, maxRows: 4 }}
                     className="addInput"
                     placeholder={t('placeholderTitle')}
