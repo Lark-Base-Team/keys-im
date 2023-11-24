@@ -206,6 +206,7 @@ export default class NewFrom extends Component {
             <div name="mydata" className="gridAdd">
                 <p className='tips'>
                     {t('tips')}
+                    <a href={'https://vuxkzil2vi.feishu.cn/docx/QEmWdx874oKXBHxqWlocuoZfnFf?from=from_copylink'} target="_blank" rel="noreferrer">{t('helpLinkText')}</a>
                 </p>
                 <p className="labels">{t('title')}</p>
                 <TextArea key={keyBoard + 1} autosize={{ minRows: 1, maxRows: 4 }}

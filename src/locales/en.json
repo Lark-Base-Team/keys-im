@@ -12,6 +12,7 @@
   "errorField":"Please change the first title to a text type and try again",
   "title":"Title",
   "keyboardShortcuts":"Keyboard shortcuts",
-  "check":"Automatic duplicate check"
+  "check":"Automatic duplicate check",
+  "helpLinkText":"Help documentation"
 
 }

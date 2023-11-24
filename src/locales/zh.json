@@ -12,5 +12,6 @@
     "errorField":"请将第一个标题修改为文本类型后再试",
     "title":"标题",
     "keyboardShortcuts":"快捷键",
-    "check":"自动查重"
+    "check":"自动查重",
+    "helpLinkText":"帮助文档"
   }
