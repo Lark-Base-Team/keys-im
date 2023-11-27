@@ -178,9 +178,9 @@ export default class NewFrom extends Component {
                     <span>
                         <div style={{marginBottom: '6px'}}>{keyDisabled1}</div>
                         <CopyToClipboard text={text}>
-                            <Text link>复制快捷键</Text>
+                            <Text link>{t('copy')}</Text>
                         </CopyToClipboard>
-                        <Text link onClick={this.goOn} style={{ marginLeft: '10px' }}>继续添加</Text>
+                        <Text link onClick={this.goOn} style={{ marginLeft: '10px' }}>{t('goOn')}</Text>
                     </span>
                 ),
                 duration: 0,
