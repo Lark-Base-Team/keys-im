@@ -1,7 +1,7 @@
 {  
   "add": "Add",  
   "addSuccess": "Add Success",  
-  "tips": "Tips: This plugin can automatically generate shortcuts for Mac and Windows and add them to the fields of 【mac Shortcut】 and 【win Shortcut】, if the corresponding fields are missing, it will automatically create them.",  
+  "tips": "Tips: This plugin can automatically generate shortcuts for Mac and Windows and add them to the fields of [Mac Shortcut] and [Windows Shortcut], if the corresponding fields are missing, it will automatically create them.",  
   "toastAllEmpty": "Title and shortcut cannot be empty",  
   "titleEmpty": "Title cannot be empty",  
   "keyEmpty": "Shortcut cannot be empty",  
@@ -15,7 +15,7 @@
   "check":"Automatic duplicate check",
   "helpLinkText":"Help documentation",
   "macTitleTxt":"Mac Shortcut",
-  "winTitleTxt":"Win Shortcut",
+  "winTitleTxt":"Windows Shortcut",
   "copy":"Copy",
   "goOn":" Keep adding"
 
