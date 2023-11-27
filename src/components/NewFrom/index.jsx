@@ -16,6 +16,8 @@ export default class NewFrom extends Component {
         loading: false,
         toast: null,
         checked: true,
+        macTitleTxt: 'mac快捷键',
+        winTitleTxt: 'win快捷键',
     }
     // 添加数据
     add = async () => {
@@ -66,22 +68,22 @@ export default class NewFrom extends Component {
         let winTitle = false
         // 判断是否有mac快捷键和win快捷键字段，如果没有则创建字段
         fieldMetaList.forEach(item => {
-            if (item.name === 'mac快捷键') {
+            if (item.name === this.state.macTitleTxt) {
                 macTitle = true
             }
-            if (item.name === 'win快捷键') {
+            if (item.name === this.state.winTitleTxt) {
                 winTitle = true
             }
         })
         if (!macTitle) {
-            await table.addField({ type: 1, name: 'mac快捷键' }) //新建文字字段
+            await table.addField({ type: 1, name: this.state.macTitleTxt }) //新建文字字段
         }
         if (!winTitle) {
-            await table.addField({ type: 1, name: 'win快捷键' }) //新建文字字段
+            await table.addField({ type: 1, name: this.state.winTitleTxt }) //新建文字字段
         }
         // 添加记录
-        const fieldMac = await table.getField('mac快捷键')
-        const fieldWin = await table.getField('win快捷键')
+        const fieldMac = await table.getField(this.state.macTitleTxt)
+        const fieldWin = await table.getField(this.state.winTitleTxt)
         await table.addRecord({
             fields: {
                 [fieldTitle.id]: this.state.title,
@@ -149,14 +151,14 @@ export default class NewFrom extends Component {
     }
     // 获取当前表的记录
     check = async () => {
+        try{
         let text = ''
         const table = await base.getActiveTable()
         const allRecords = await table.getRecords({
             pageSize: 5000
         })
         const records = allRecords.records
-        const fieldWin = await table.getFieldByName('win快捷键')
-        console.log(records);
+        const fieldWin = await table.getFieldByName(this.state.winTitleTxt)
         for (let i = 0; i < records.length; i++) {
             let winCell = records[i].fields[fieldWin.id]
             let winCellValue = winCell ? winCell[0].text : ''
@@ -185,6 +187,10 @@ export default class NewFrom extends Component {
             })
             this.setState({ toast: toast })
         }
+    }catch (error){
+        console.log(error)
+        this.goOn()
+    }
     }
     goOn = async () => {
         this.setState({ loading: true })
@@ -199,6 +205,11 @@ export default class NewFrom extends Component {
             if (!result) return this.setState({ loading: false })
         }
         await this.add()
+    }
+    componentDidMount() {
+        const { t } = this.props
+        this.setState({macTitleTxt: t('macTitleTxt')})
+        this.setState({winTitleTxt: t('winTitleTxt')})
     }
     render() {
         const { t } = this.props

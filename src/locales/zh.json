@@ -13,5 +13,7 @@
     "title":"标题",
     "keyboardShortcuts":"快捷键",
     "check":"自动查重",
-    "helpLinkText":"帮助文档"
+    "helpLinkText":"帮助文档",
+    "macTitleTxt":"mac快捷键",
+    "winTitleTxt":"win快捷键"
   }
