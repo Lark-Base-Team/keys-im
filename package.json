@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^13.5.0",
     "ex2json": "^0.0.3",
     "file-saver": "^2.0.5",
+    "i18next": "^23.7.6",
     "i18next-browser-languagedetector": "^7.2.0",
     "nanoid": "^5.0.2",
     "react": "^18.2.0",
