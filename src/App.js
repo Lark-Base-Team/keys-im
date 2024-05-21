@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import NewFrom from './components/NewFrom'
 import { withTranslation } from 'react-i18next'
+import './style.css';
 
 // 引入i18n组件
 const NewApp = withTranslation()(NewFrom)
