@@ -154,13 +154,24 @@ export default class NewFrom extends Component {
         try{
         let text = ''
         const table = await base.getActiveTable()
-        const allRecords = await table.getRecords({
-            pageSize: 5000
-        })
-        const records = allRecords.records
+
+        let recordList = []
+        let hasMorePage = false
+        let nextPageToken = undefined
+        do {
+          const { hasMore, pageToken, records } = await table.getRecordsByPage({
+              pageToken: nextPageToken,
+              pageSize: 200
+          })
+          nextPageToken = pageToken
+          hasMorePage = hasMore
+          recordList = recordList.concat(records)
+      } while (hasMorePage)
+
+
         const fieldWin = await table.getFieldByName(this.state.winTitleTxt)
-        for (let i = 0; i < records.length; i++) {
-            let winCell = records[i].fields[fieldWin.id]
+        for (let i = 0; i < recordList.length; i++) {
+            let winCell = recordList[i].fields[fieldWin.id]
             let winCellValue = winCell ? winCell[0].text : ''
             if (winCellValue === this.state.win.join(' + ')) {
                 text = winCellValue
