@@ -155,9 +155,9 @@ export default class NewFrom extends Component {
         let text = ''
         const table = await base.getActiveTable()
 
-        let recordList:string[] = []
+        let recordList = []
         let hasMorePage = false
-        let nextPageToken: number | undefined = undefined
+        let nextPageToken = undefined
         do {
           const { hasMore, pageToken, records } = await table.getRecordsByPage({
               pageToken: nextPageToken,
